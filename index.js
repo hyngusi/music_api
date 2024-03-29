@@ -2,6 +2,7 @@ const express = require('express')
 const { connectDB } = require("./utils/mongoose")
 
 const app = express()
+app.use(express.json())
 
 const {
     PORT,
