@@ -80,11 +80,32 @@ const playlistController = {
         }
     },
 
+    deletePlaylist: async (req, res) => {
+        const id = req.params.id
 
+        try {
+            const playlist = await Playlist.findOneAndDelete({ id: id })
+
+            if (!playlist) {
+                res.status(404).send({
+                    status: "False",
+                    message: `Playlist ${id} was not found`
+                })
+            }
+
+            res.status(200).send({
+                status: "Deleted",
+                data: playlist
+            })
+        } catch (err) {
+            res.status(400).send(err.message)
+        }
+    }
 }
 
 module.exports = {
     getAllPlaylists: playlistController.getAllPlaylists,
     getPlaylistById: playlistController.getPlaylistById,
     postPlaylist: playlistController.postPlaylist,
+    deletePlaylist: playlistController.deletePlaylist
 }

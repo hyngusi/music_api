@@ -13,7 +13,7 @@ router
     .get("/", getAllPlaylists)
     .get("/:id", getPlaylistById)
     .post("/", postPlaylist)
-// .delete("/:id", deletePlaylist)
+    .delete("/:id", deletePlaylist)
 // .patch("/:id", patchPlaylist)
 
 module.exports = router
