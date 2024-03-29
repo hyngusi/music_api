@@ -3,16 +3,16 @@ const router = express.Router()
 
 const {
     getAllTracks,
-    getOneTrack,
+    getTrackById,
     postNewTrack,
     deleteOneTrack,
     patchOneTrack
 } = require("../../controllers/tracksController")
 
 router
-// .get("/", getAllTracks)
-// .get("/:id", getOneTrack)
-// .post("/", postNewTrack)
+    .get("/", getAllTracks)
+    .get("/:id", getTrackById)
+    .post("/", postNewTrack)
 // .delete("/:id", deleteOneTrack)
 // .patch("/:id", patchOneTrack)
 

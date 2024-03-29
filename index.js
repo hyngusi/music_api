@@ -17,3 +17,6 @@ connectDB(app, PORT, DB)
 // Routes
 const { playlists } = require(ROUTING_VERSION)
 app.use(`${VERSION}playlists`, playlists)
+
+const { tracks } = require(ROUTING_VERSION)
+app.use(`${VERSION}tracks`, tracks)
