@@ -106,9 +106,4 @@ const playlistController = {
     }
 }
 
-module.exports = {
-    getAllPlaylists: playlistController.getAllPlaylists,
-    getPlaylistById: playlistController.getPlaylistById,
-    postPlaylist: playlistController.postPlaylist,
-    deletePlaylist: playlistController.deletePlaylist
-}
+module.exports = playlistController

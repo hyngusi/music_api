@@ -6,7 +6,7 @@ const tracksController = {
         try {
             const tracks = await Track
                 .find({})
-                .populate('playlist')
+                .populate('playlists')
                 .lean()
 
             res.status(200).send(tracks)
@@ -58,11 +58,29 @@ const tracksController = {
         }
     },
 
+    deleteOneTrack: async (req, res) => {
+        const id = req.params.id
 
+        try {
+            const track = await Track.findOneAndDelete({ id: id })
+
+            if (!track) {
+                return res.status(404).send({
+                    status: "False",
+                    message: `Track ${id} was not found`
+                })
+            }
+            res.status(204).send({ status: "Deleted" })
+        } catch (err) {
+            res.status(400).send(err.message)
+        }
+    }
 }
 
-module.exports = {
-    getAllTracks: tracksController.getAllTracks,
-    getTrackById: tracksController.getTrackById,
-    postNewTrack: tracksController.postNewTrack,
-}
+// module.exports = {
+//     getAllTracks: tracksController.getAllTracks,
+//     getTrackById: tracksController.getTrackById,
+//     postNewTrack: tracksController.postNewTrack,
+// }
+
+module.exports = tracksController
