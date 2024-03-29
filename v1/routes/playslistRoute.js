@@ -9,12 +9,11 @@ const {
     patchPlaylist
 } = require("../../controllers/playlistsController")
 
-
 router
     .get("/", getAllPlaylists)
-    .get("/:id", getPlaylistById)
-    .post("/", postPlaylist)
-    .delete("/:id", deletePlaylist)
-    .patch("/:id", patchPlaylist)
+// .get("/:id", getPlaylistById)
+// .post("/", postPlaylist)
+// .delete("/:id", deletePlaylist)
+// .patch("/:id", patchPlaylist)
 
 module.exports = router

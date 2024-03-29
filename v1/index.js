@@ -1,7 +1,7 @@
-const track = require("./routes/tracksRoute")
-const playlist = require("./routes/playlistsRoute")
+const tracks = require("./routes/tracksRoute")
+const playlists = require("./routes/playslist.routes")
 
 module.exports = {
-    track,
-    playlist
+    tracks,
+    playlists
 }
