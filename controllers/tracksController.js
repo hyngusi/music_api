@@ -11,7 +11,7 @@ const tracksController = {
 
             res.status(200).send(tracks)
         } catch (err) {
-            res.status(400).send(err.message)
+            res.status(500).send(err.message)
         }
     },
 
@@ -24,14 +24,17 @@ const tracksController = {
                 .populate("playlists")
                 .lean()
 
+
             if (!track) {
                 return res.status(404).send({
                     status: "False",
                     message: `Track ${id} was not found`
                 })
             }
+
+            res.status(200).send(track)
         } catch (err) {
-            res.status(400).send(err.message)
+            res.status(500).send(err.message)
         }
     },
 
@@ -41,7 +44,7 @@ const tracksController = {
         try {
             const trackExist = await Track.findOne({ id: body.id })
             if (trackExist) {
-                return res.status(400).send({
+                return res.status(500).send({
                     status: "False",
                     message: "This track already exists"
                 })
@@ -54,7 +57,7 @@ const tracksController = {
                 data: newTrack
             })
         } catch (err) {
-            res.status(400).send(err.message)
+            res.status(500).send(err.message)
         }
     },
 
@@ -72,7 +75,7 @@ const tracksController = {
             }
             res.status(204).send({ status: "Deleted" })
         } catch (err) {
-            res.status(400).send(err.message)
+            res.status(500).send(err.message)
         }
     }
 }

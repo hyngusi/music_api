@@ -20,7 +20,7 @@ const playlistController = {
             }
             res.status(200).send(playlists)
         } catch (err) {
-            res.status(400).send(err.message)
+            res.status(500).send(err.message)
         }
     },
 
@@ -51,7 +51,7 @@ const playlistController = {
 
             res.status(200).send(playlist)
         } catch (err) {
-            res.status(400).send(err.message)
+            res.status(500).send(err.message)
         }
     },
 
@@ -78,7 +78,7 @@ const playlistController = {
             })
 
         } catch (err) {
-            res.status(400).send(err.message)
+            res.status(500).send(err.message)
             console.log(err)
         }
     },
@@ -101,7 +101,7 @@ const playlistController = {
                 data: playlist
             })
         } catch (err) {
-            res.status(400).send(err.message)
+            res.status(500).send(err.message)
         }
     }
 }
