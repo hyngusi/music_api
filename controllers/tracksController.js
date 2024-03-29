@@ -36,8 +36,8 @@ const tracksController = {
     },
 
     postNewTrack: async (req, res) => {
-        const body = req.body
-
+        const body = req.body[0]
+        console.log(body.id)
         try {
             const trackExist = await Track.findOne({ id: body.id })
             if (trackExist) {

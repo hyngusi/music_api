@@ -3,7 +3,8 @@ const { Schema, model } = require("mongoose")
 const trackSchema = new Schema({
     id: {
         type: String,
-        required: [true, "the id of the song is required"]
+        required: [true, "the id of the song is required"],
+        unique: true
     },
     name: {
         type: String,
@@ -21,10 +22,14 @@ const trackSchema = new Schema({
     },
     playlists: [
         {
-            type: Schema.Types.ObjectId,
+            type: Schema.Types.String,
             ref: 'playlist'
         }
     ]
-}, { timestamps: true })
+}, { timestamps: true }, { _id: false })
+
+// trackSchema.set('_id', false)
+// trackSchema.set('validateBeforeSave', false);
+
 
 module.exports = model('track', trackSchema)

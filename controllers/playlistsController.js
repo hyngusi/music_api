@@ -6,7 +6,10 @@ const playlistController = {
         try {
             const playlists = await Playlist
                 .find({})
-                .populate("tracks")
+                .populate({
+                    path: "tracks",
+                    foreignField: 'id'
+                })
                 .lean()
 
             if (playlists.length < 1) {
