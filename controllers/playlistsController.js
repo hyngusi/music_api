@@ -22,7 +22,7 @@ const playlistController = {
     },
 
     getPlaylistById: async (req, res) => {
-        const { param: { id } } = req
+        const id = req.params.id
 
         // if (!mongoose.Types.ObjectId.isValid(id)) {
         //     return res.status(404).send({
@@ -31,7 +31,25 @@ const playlistController = {
         //     })
         // }
 
+        try {
+            const playlist = await Playlist
+                .findOne({ id: id })
+                .populate({
+                    path: "tracks"
+                })
+                .lean()
 
+            if (!playlist) {
+                return res.status(404).send({
+                    status: "False",
+                    message: `Playlist ${id} was not found`
+                })
+            }
+
+            res.status(200).send(playlist)
+        } catch (err) {
+            res.status(400).send(err.message)
+        }
     },
 
     postPlaylist: async (req, res) => {
@@ -67,5 +85,6 @@ const playlistController = {
 
 module.exports = {
     getAllPlaylists: playlistController.getAllPlaylists,
-    postPlaylist: playlistController.postPlaylist
+    getPlaylistById: playlistController.getPlaylistById,
+    postPlaylist: playlistController.postPlaylist,
 }

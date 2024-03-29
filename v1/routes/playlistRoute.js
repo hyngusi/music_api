@@ -11,7 +11,7 @@ const {
 
 router
     .get("/", getAllPlaylists)
-    // .get("/:id", getPlaylistById)
+    .get("/:id", getPlaylistById)
     .post("/", postPlaylist)
 // .delete("/:id", deletePlaylist)
 // .patch("/:id", patchPlaylist)
