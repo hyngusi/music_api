@@ -38,7 +38,8 @@ const playlistController = {
             const playlist = await Playlist
                 .findOne({ id: id })
                 .populate({
-                    path: "tracks"
+                    path: "tracks",
+                    foreignField: 'id'
                 })
                 .lean()
 
@@ -56,27 +57,23 @@ const playlistController = {
     },
 
     postPlaylist: async (req, res) => {
-        const { body } = req
+        const playlists = req.body
 
         try {
-            // const playlistExist = await Playlist.findOne({ name: body.name })
+            for (playlist of playlists) {
+                const playlistExist = await Playlist.findOne({ id: playlist.id })
 
-            // if (playlistExist) {
-            //     return res.status(400).send({
-            //         status: "False",
-            //         message: "Playlist already exist"
-            //     })
-            // }
-
-            const playlist = await Playlist.create(body)
-
-            res.status(201).send({
-                status: "Created",
-                data: {
-                    playlist
+                if (playlistExist) {
+                    console.log(`Playist with id ${playlist.id} already exists, skipping...`);
+                } else {
+                    const playlist = await Playlist.create(playlist)
+                    console.log(`Playlist with id ${playlist.id} created successfully`);
                 }
-            })
+            }
 
+            res.status(200).send({
+                status: "Created"
+            })
         } catch (err) {
             res.status(500).send(err.message)
             console.log(err)

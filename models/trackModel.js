@@ -11,6 +11,9 @@ const trackSchema = new Schema({
         required: [true, "the name of the song is required"],
         trim: true
     },
+    artistsName: {
+        type: String
+    },
     img: {
         type: String,
         // required: [true, "img is required"],
@@ -20,12 +23,12 @@ const trackSchema = new Schema({
         type: String,
         // required: [true, "the url is required"]
     },
-    playlists: [
-        {
-            type: Schema.Types.String,
-            ref: 'playlist'
-        }
-    ]
+    // playlists: [
+    //     {
+    //         type: Schema.Types.String,
+    //         ref: 'playlist'
+    //     }
+    // ]
 }, { timestamps: true }, { _id: false })
 
 // trackSchema.set('_id', false)

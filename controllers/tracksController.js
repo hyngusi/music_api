@@ -39,22 +39,21 @@ const tracksController = {
     },
 
     postNewTrack: async (req, res) => {
-        const body = req.body[0]
-        console.log(body.id)
+        const tracks = req.body; // Đầu vào là một danh sách các bài hát
         try {
-            const trackExist = await Track.findOne({ id: body.id })
-            if (trackExist) {
-                return res.status(500).send({
-                    status: "False",
-                    message: "This track already exists"
-                })
+            for (const track of tracks) {
+                const trackExist = await Track.findOne({ id: track.id });
+
+                if (trackExist) {
+                    console.log(`Track with id ${track.id} already exists, skipping...`);
+                } else {
+                    const newTrack = await Track.create(track);
+                    console.log(`Track with id ${track.id} created successfully`);
+                }
             }
 
-            const newTrack = await Track.create(body)
-
-            res.status(201).send({
+            res.status(200).send({
                 status: "Creadted",
-                data: newTrack
             })
         } catch (err) {
             res.status(500).send(err.message)
