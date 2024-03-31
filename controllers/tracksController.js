@@ -40,6 +40,7 @@ const tracksController = {
 
     postNewTrack: async (req, res) => {
         const tracks = req.body; // Đầu vào là một danh sách các bài hát
+        let count
         try {
             for (const track of tracks) {
                 const trackExist = await Track.findOne({ id: track.id });
@@ -48,12 +49,14 @@ const tracksController = {
                     console.log(`Track with id ${track.id} already exists, skipping...`);
                 } else {
                     const newTrack = await Track.create(track);
+                    count++
                     console.log(`Track with id ${track.id} created successfully`);
                 }
             }
 
             res.status(200).send({
                 status: "Creadted",
+                message: `create ${count} track`
             })
         } catch (err) {
             res.status(500).send(err.message)

@@ -60,13 +60,13 @@ const playlistController = {
         const playlists = req.body
 
         try {
-            for (playlist of playlists) {
+            for (const playlist of playlists) {
                 const playlistExist = await Playlist.findOne({ id: playlist.id })
 
                 if (playlistExist) {
                     console.log(`Playist with id ${playlist.id} already exists, skipping...`);
                 } else {
-                    const playlist = await Playlist.create(playlist)
+                    const newPlaylist = await Playlist.create(playlist)
                     console.log(`Playlist with id ${playlist.id} created successfully`);
                 }
             }
