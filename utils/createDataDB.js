@@ -2,43 +2,29 @@ const mongoose = require('mongoose');
 const axios = require('axios')
 const { DB } = require('../config/config');
 const getPlaylists = require("./playlist-api")
-const getTracks = require("./track-api")
+const { connectCrudDB } = require("./mongoose")
+const { disconnectDB } = require("./mongoose")
 
 
 const playlistId = ['ZWZB969E', 'ZWZB96AB', 'ZWZB96DC', 'ZWZB96AI', 'ZWZB96DF', 'ZUDW9B78'];
 
 let playlists = [];
 (async () => {
-    connectPrimaryDB()
+    connectCrudDB(DB)
     let playlist
-    for (const id of playlistId) {
-        playlist = await getPlaylists(id)
+    // for (const id of playlistId) {
+    // playlist = await getPlaylists(id)
 
-        playlists.push(playlist[0])
+    //     playlists.push(playlist[0])
 
-        await postTracksToAPI(playlist[1])
-    }
+    //     await postTracksToAPI(playlist[1])
+    // }
 
-    await postPlaylistToAPI(playlists)
+    // await postPlaylistToAPI(playlists)
 
-    mongoose.disconnect()
-        .then(() => {
-            console.log('Disconnected from MongoDB');
-        })
-        .catch((err) => {
-            console.error('Error disconnecting from MongoDB:', err);
-        });
+    disconnectDB()
 })();
 
-async function connectPrimaryDB() {
-    try {
-        await mongoose.connect(DB);
-        console.log('Update MongoDB connected');
-    } catch (error) {
-        console.error('Error connecting to update MongoDB:', error);
-        process.exit(1);
-    }
-};
 
 async function postPlaylistToAPI(playlistData) {
     try {

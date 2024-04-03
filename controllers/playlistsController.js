@@ -100,6 +100,25 @@ const playlistController = {
         } catch (err) {
             res.status(500).send(err.message)
         }
+    },
+
+    patchPlaylist: async (req, res) => {
+        const playlists = req.body
+        try {
+            for (const playlist of playlists) {
+                const up = await Playlist.findOneAndUpdate({ id: playlist.id }, { url: playlist.url })
+
+                if (up) {
+                    console.log(`Updated playlist ${playlist.id}`)
+                } else {
+                    console.log(`Playlist with id ${playlist.id} update err`);
+                }
+            }
+
+            res.status(200).send({ status: "Updated" })
+        } catch (err) {
+            res.status(500).send(err.message)
+        }
     }
 }
 

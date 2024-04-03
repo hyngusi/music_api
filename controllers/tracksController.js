@@ -79,7 +79,27 @@ const tracksController = {
         } catch (err) {
             res.status(500).send(err.message)
         }
-    }
+    },
+
+    patchTrack: async (req, res) => {
+        const tracks = req.body
+        try {
+            for (const track of tracks) {
+                const up = await Track.findOneAndUpdate({ id: track.id }, { url: track.url })
+
+                if (up) {
+                    console.log(`Updated track ${track.id}`)
+                } else {
+                    console.log(`Track with id ${track.id} update err`);
+                }
+            }
+
+            res.status(200).send({ status: "Updated" })
+        } catch (err) {
+            res.status(500).send(err.message)
+        }
+    },
+
 }
 
 // module.exports = {

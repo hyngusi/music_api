@@ -6,14 +6,14 @@ const {
     getTrackById,
     postNewTrack,
     deleteOneTrack,
-    patchOneTrack
+    patchTrack
 } = require("../../controllers/tracksController")
 
 router
     .get("/", getAllTracks)
     .get("/:id", getTrackById)
     .post("/", postNewTrack)
-// .delete("/:id", deleteOneTrack)
-// .patch("/:id", patchOneTrack)
+    // .delete("/:id", deleteOneTrack)
+    .patch("/", patchTrack)
 
 module.exports = router

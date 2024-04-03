@@ -14,6 +14,6 @@ router
     .get("/:id", getPlaylistById)
     .post("/", postPlaylist)
     .delete("/:id", deletePlaylist)
-// .patch("/:id", patchPlaylist)
+    .patch("/", patchPlaylist)
 
 module.exports = router
