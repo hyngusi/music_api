@@ -12,15 +12,15 @@ let playlists = [];
 (async () => {
     connectCrudDB(DB)
     let playlist
-    // for (const id of playlistId) {
-    // playlist = await getPlaylists(id)
+    for (const id of playlistId) {
+        playlist = await getPlaylists(id)
 
-    //     playlists.push(playlist[0])
+        playlists.push(playlist[0])
 
-    //     await postTracksToAPI(playlist[1])
-    // }
+        await postTracksToAPI(playlist[1])
+    }
 
-    // await postPlaylistToAPI(playlists)
+    await postPlaylistToAPI(playlists)
 
     disconnectDB()
 })();

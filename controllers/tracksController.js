@@ -85,12 +85,19 @@ const tracksController = {
         const tracks = req.body
         try {
             for (const track of tracks) {
-                const up = await Track.findOneAndUpdate({ id: track.id }, { url: track.url })
+                const trackExist = await Track.findOne({ id: track.id });
 
-                if (up) {
-                    console.log(`Updated track ${track.id}`)
+                if (trackExist) {
+                    const up = await Track.findOneAndUpdate({ id: track.id }, { url: track.url })
+
+                    if (up) {
+                        console.log(`Updated track ${track.id}`)
+                    } else {
+                        console.log(`Can't found track with id ${track.id}`);
+                    }
                 } else {
-                    console.log(`Track with id ${track.id} update err`);
+                    const newTrack = await Track.create(track);
+                    console.log(`No track with id ${track.id}, created track`)
                 }
             }
 
